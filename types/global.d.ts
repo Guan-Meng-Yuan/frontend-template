@@ -13,4 +13,25 @@ declare global{
     password?: string
     rememberMe?: boolean
   }
+  interface Base {
+    id?: string
+    createTime?: Date
+    updateTime?: Date
+  }
+  interface User extends Base {
+    username?: string
+    password?: string
+
+  }
+
+  interface Menu extends Base {
+    title?: string
+    path?: string
+    parentId?: string
+    component?: string
+    name?: string
+    hide?: boolean
+    icon?: string
+    children?: Menu[]
+  }
 }

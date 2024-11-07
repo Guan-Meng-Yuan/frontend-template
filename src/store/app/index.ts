@@ -4,6 +4,7 @@ import { store } from '..'
 
 const appStore = defineStore('app', () => {
   const theme = ref(lightTheme)
+  const collapsed = ref(false)
   useDark({
     selector: 'html',
     attribute: 'class',
@@ -17,6 +18,8 @@ const appStore = defineStore('app', () => {
   })
   return {
     theme,
+    collapsed,
+
   }
 })
 export const useApp = () => appStore(store)

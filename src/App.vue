@@ -7,22 +7,20 @@ const { getComponentsLocale } = useLocale()
 const appStore = useApp()
 const themeOverrides: GlobalThemeOverrides = {
   Layout: {
-    color: 'linear-gradient(#ffffff, #f5f5f5 28%)',
+    color: 'rgb(250, 250, 252)',
+    footerColor: '#ffffff',
   },
 }
+const route = useRoute()
 </script>
 
 <template>
   <NConfigProvider :theme-overrides="themeOverrides" :locale="getComponentsLocale" :theme="appStore.theme" :date-locale="getComponentsLocale">
     <NGlobalStyle />
-    <NLayout has-sider>
-      <NLayoutSider />
-      <NLayout>
-        <NLayoutContent>
-          <RouterView />
-        </NLayoutContent>
-      </NLayout>
-    </NLayout>
+    <Layout v-if="route.name !== 'Login'">
+      <RouterView />
+    </Layout>
+    <RouterView v-else />
   </NConfigProvider>
 </template>
 
