@@ -8,28 +8,36 @@ import { defineStore } from 'pinia'
 const appStore = defineStore('app', () => {
   const naiveTheme = ref<GlobalTheme | undefined>(undefined)
   const themeMode = useStorage('themeMode', 'auto')
-
   const systemIsDark = useDark({
     onChanged: (isDark: boolean, defaultHandler: ((mode: BasicColorSchema) => void), mode: BasicColorSchema) => {
-      const themeMode = useStorage('themeMode', 'auto')
       if (themeMode.value === 'auto') {
         naiveTheme.value = isDark ? darkTheme : undefined
+      }
+      if (themeMode.value === 'light') {
+        naiveTheme.value = undefined
+      }
+      if (themeMode.value === 'dark') {
+        naiveTheme.value = darkTheme
       }
       defaultHandler(mode)
     },
   })
-  const getThemeOverridesProviderProps = () => {
-    if (themeMode.value === 'auto') {
-      if (systemIsDark.value) {
-        return {
-          theme: systemIsDark.value ? darkTheme : undefined,
-        }
-      }
+  const switchTheme = (mode: string) => {
+    switch (mode) {
+      case 'auto':
+        naiveTheme.value = systemIsDark.value ? darkTheme : undefined
+        break
+      case 'light':
+        naiveTheme.value = undefined
+        break
+      case 'dark':
+        naiveTheme.value = darkTheme
+        break
     }
-    return {
-      theme: themeMode.value === 'light' ? undefined : darkTheme,
-    }
+    themeMode.value = mode
+    localStorage.setItem('themeMode', mode)
   }
+
   const getNaiveTheme = () => {
     if (themeMode.value === 'auto') {
       if (systemIsDark.value) {
@@ -39,9 +47,7 @@ const appStore = defineStore('app', () => {
     naiveTheme.value = themeMode.value === 'light' ? undefined : darkTheme
     return naiveTheme.value
   }
-  return { naiveTheme, systemIsDark, themeMode, getNaiveTheme, getThemeOverridesProviderProps }
-}, {
-  persist: true,
+  return { naiveTheme, systemIsDark, getNaiveTheme, switchTheme, themeMode }
 })
 function useApp() {
   return appStore(store)

@@ -5,9 +5,9 @@ const appStore = useApp()
 </script>
 
 <template>
-  <NConfigProvider :theme="appStore.getNaiveTheme()">
+  <NConfigProvider :theme="appStore.naiveTheme">
     <NGlobalStyle />
-    <HelloWorld />
+    <Layout />
   </NConfigProvider>
 </template>
 
