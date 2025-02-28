@@ -19,8 +19,12 @@ const appStore = useApp()
     <NLayout :native-scrollbar="false">
       <NLayoutHeader :native-scrollbar="false" h-64px position="absolute">
         <div w="full" flex="~ justify-between items-center">
-          <div w="50%" bg-red>
-            顶部左侧
+          <div w="50%">
+            <NButton quaternary>
+              <template #icon>
+                <div class="i-tabler:reload h-48px w-48px" />
+              </template>
+            </NButton>
           </div>
           <div>
             <NButton circle quaternary @click="showSettingPane">

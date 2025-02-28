@@ -9,7 +9,7 @@ const router = createRouter({
     return to.hash ? { behavior: 'smooth', el: to.hash } : { left: 0, top: 0 }
   },
 })
-function setupRouter(app: Element<App>) {
+function setupRouter(app: App<Element>) {
   app.use(router)
 }
 export {

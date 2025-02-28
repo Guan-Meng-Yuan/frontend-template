@@ -10,4 +10,5 @@ declare global {
     $loadingBar: LoadingBarApi
     $notification: NotificationApi
   }
+
 }
